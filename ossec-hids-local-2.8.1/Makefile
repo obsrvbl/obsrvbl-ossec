@@ -6,7 +6,6 @@ all:
 	touch src/Config.OS
 	sed -i '/CEXTRA.*/d' src/Config.OS
 	echo "CEXTRA=-DLOCAL" >> src/Config.OS
-	(cd src; make setgeoip)
 	(cd src; make all; make build)	
 
 clean:
