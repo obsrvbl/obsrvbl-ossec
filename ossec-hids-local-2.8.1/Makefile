@@ -1,6 +1,8 @@
 DESTDIR=/
 DIR=debian/ossec-hids-local/opt/obsrvbl/ossec/
 OSSEC_INIT=debian/ossec-hids-local/etc/ossec-init.conf
+TARGET ?= local
+PREFIX ?= /opt/obsrvbl/ossec
 
 all:
 	touch src/Config.OS
