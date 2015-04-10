@@ -8,7 +8,7 @@ all:
 	touch src/Config.OS
 	sed -i '/CEXTRA.*/d' src/Config.OS
 	echo "CEXTRA=-DLOCAL" >> src/Config.OS
-	(cd src; make all; make build)	
+	(cd src; make PREFIX=$(PREFIX) TARGET=$(TARGET) all; make PREFIX=$(PREFIX) TARGET=$(TARGET) build)	
 
 clean:
 	rm bin/* || /bin/true
