@@ -1,0 +1,35 @@
+image: gcc4.8
+
+env:
+  - PREFIX=/opt/obsrvbl/ossec
+  - TARGET=local
+  - VERSION=2.8.1
+
+script:
+  - sudo apt-get update
+  - sudo apt-get install ubuntu-dev-tools build-essential debhelper
+  - tar czf ossec-hids/ ossec-hids-$TARGET_$VERSION.orig.tar.gz
+  - cp -r ossec-hids/src/ ossec-hids-$TARGET-$VERSION/
+  - cp -r ossec-hids/etc/ ossec-hids-$TARGET-$VERSION/
+  - cp -r ossec-hids/contrib/ ossec-hids-$TARGET-$VERSION/
+  - cp -r ossec-hids/active-response/ ossec-hids-$TARGET-$VERSION/
+  - debuild -i -uc -us -b
+  - cp *.deb debs/
+
+notify:
+  email:
+    recipients:
+      - mjschultz@obsrvbl.com
+
+publish:
+  s3:
+    acl: public-read
+    region: us-east-1
+    bucket: onstatic
+    access_key: $$AWS_KEY
+    secret_key: $$AWS_SECRET
+    source: debs/
+    target: ossec-hids/$DRONE_BRANCH/
+    recursive: true
+    when:
+      owner: obsrvbl
