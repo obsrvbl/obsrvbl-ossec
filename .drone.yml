@@ -13,7 +13,8 @@ script:
   - cp -r ossec-hids/etc/ ossec-hids-$TARGET-$VERSION/
   - cp -r ossec-hids/contrib/ ossec-hids-$TARGET-$VERSION/
   - cp -r ossec-hids/active-response/ ossec-hids-$TARGET-$VERSION/
-  - debuild -i -uc -us -b
+  - ( cd ossec-hids-$TARGET-$VERSION/ ; dch -i  )
+  - ( cd ossec-hids-$TARGET-$VERSION/ ; debuild -i -uc -us -b )
   - cp *.deb debs/
 
 notify:
