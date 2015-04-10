@@ -1,0 +1,3 @@
+[submodule "ossec-hids"]
+	path = ossec-hids
+	url = https://github.com/ossec/ossec-hids.git
