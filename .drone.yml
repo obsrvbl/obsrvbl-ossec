@@ -8,7 +8,7 @@ env:
 script:
   - sudo apt-get update
   - sudo apt-get install ubuntu-dev-tools build-essential debhelper
-  - tar czf ossec-hids/ ossec-hids-$TARGET_$VERSION.orig.tar.gz
+  - tar czf ossec-hids-$TARGET_$VERSION.orig.tar.gz ossec-hids/
   - cp -r ossec-hids/src/ ossec-hids-$TARGET-$VERSION/
   - cp -r ossec-hids/etc/ ossec-hids-$TARGET-$VERSION/
   - cp -r ossec-hids/contrib/ ossec-hids-$TARGET-$VERSION/
