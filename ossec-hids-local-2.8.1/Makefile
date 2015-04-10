@@ -30,15 +30,15 @@ install:
 	cp -pr etc/rules/* ${DIR}/rules/
 	cp -pL /etc/localtime ${DIR}/etc/ 2>/dev/null || /bin/true
 	cp -p /etc/TIMEZONE ${DIR}/etc/   2>/dev/null || /bin/true
-	cp -pr bin/ossec* ${DIR}/bin/
-	cp -pr bin/manage_agents ${DIR}/bin/
-	cp -pr bin/syscheck_update ${DIR}/bin/
-	cp -pr bin/verify-agent-conf ${DIR}/bin/
-	cp -pr bin/clear_stats ${DIR}/bin/
-	cp -pr bin/list_agents ${DIR}/bin/
-	cp -pr bin/agent_control ${DIR}/bin/
-	cp -pr bin/syscheck_control ${DIR}/bin/
-	cp -pr bin/rootcheck_control ${DIR}/bin/
+	cp -pr src/ossec* ${DIR}/bin/
+	cp -pr src/manage_agents ${DIR}/bin/
+	cp -pr src/syscheck_update ${DIR}/bin/
+	cp -pr src/verify-agent-conf ${DIR}/bin/
+	cp -pr src/clear_stats ${DIR}/bin/
+	cp -pr src/list_agents ${DIR}/bin/
+	cp -pr src/agent_control ${DIR}/bin/
+	cp -pr src/syscheck_control ${DIR}/bin/
+	cp -pr src/rootcheck_control ${DIR}/bin/
 	cp -pr contrib/util.sh ${DIR}/bin/
 	cp -pr src/init/ossec-local.sh ${DIR}/bin/ossec-control
 	cp -pr etc/decoder.xml ${DIR}/etc/
