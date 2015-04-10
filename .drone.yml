@@ -15,6 +15,7 @@ script:
   - cp -r ossec-hids/active-response/ ossec-hids-$TARGET-$VERSION/
   - ( cd ossec-hids-$TARGET-$VERSION/ ; dch -D precise -i "Based on ossec-hids@$DRONE_COMMIT" )
   - ( cd ossec-hids-$TARGET-$VERSION/ ; debuild -i -uc -us -b )
+  - mkdir -p debs/
   - cp *.deb debs/
 
 notify:
