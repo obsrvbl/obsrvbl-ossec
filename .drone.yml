@@ -21,7 +21,7 @@ script:
 notify:
   email:
     recipients:
-      - mjschultz@obsrvbl.com
+      - engineering@obsrvbl.com
 
 publish:
   s3:
