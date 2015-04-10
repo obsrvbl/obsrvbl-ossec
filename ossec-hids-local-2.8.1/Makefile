@@ -1,5 +1,5 @@
 DESTDIR=/
-DIR=debian/ossec-hids-local/var/ossec/
+DIR=debian/ossec-hids-local/opt/obsrvbl/ossec/
 OSSEC_INIT=debian/ossec-hids-local/etc/ossec-init.conf
 
 all:
@@ -54,8 +54,8 @@ install:
 	cp -pr src/rootcheck/db/*.txt ${DIR}/etc/shared/
 	cp -p active-response/*.sh ${DIR}/active-response/bin/
 	cp -p active-response/firewalls/*.sh ${DIR}/active-response/bin/
-	echo "DIRECTORY=\"/var/ossec\"" > ${OSSEC_INIT}
-	echo "VERSION=\"v2.7\"" >> ${OSSEC_INIT}
+	echo "DIRECTORY=\"/opt/obsrvbl/ossec\"" > ${OSSEC_INIT}
+	echo "VERSION=\"v2.8.1\"" >> ${OSSEC_INIT}
 	echo "DATE=\"`date`\"" >> ${OSSEC_INIT}
 	echo "TYPE=\"local\"" >> ${OSSEC_INIT}
 

@@ -1,13 +1,12 @@
 This work was packaged for Debian by:
 
-    unknown <nicolas.zin@savoirfairelinux.com> on Thu, 17 Mar 2011 11:46:29 -0400
+    Observable Engineering <engineering@obsrvbl.com> on Fri, 10 Apr 2015 13:43:30 -0500
 
-It was downloaded from <url://example.com>
+It was downloaded from <https://github.com/ossec/ossec-hids> and <https://github.com/nzin/ossec-deb>
 
 Upstream Author(s):
 
-    <put author's name and email here>
-    <likewise for another author>
+    TrendMicro, Inc.
 
 Copyright:
 
@@ -16,10 +15,11 @@ Copyright:
 
 License:
 
-    <Put the license of the package here indented by 4 spaces>
+    GNU General Public License (version 2)
 
 The Debian packaging is:
 
+    Copyright (C) 2015 Observable Engineering <engineering@obsrvbl.com>
     Copyright (C) 2011 unknown <nicolas.zin@savoirfairelinux.com>
 
 # Please chose a license for your packaging work. If the program you package

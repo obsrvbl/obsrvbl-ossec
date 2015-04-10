@@ -25,7 +25,7 @@ case "$1" in
         ;;
     configure)
 	
-	DIR=/var/ossec
+	DIR=/opt/obsrvbl/ossec
 	GROUP="ossec"
 	USER="ossec"
 	USER_MAIL="ossecm"
@@ -192,7 +192,7 @@ db_get ossec-hids-local/emailto
 emailto=$RET
 db_get ossec-hids-local/smtpserver
 smtpserver=$RET
-sed -i -e "s/SMTPSERVER/$smtpserver/" -e "s/EMAILFROM/$emailfrom/" -e "s/EMAILTO/$emailto/"  /var/ossec/etc/ossec.conf
+sed -i -e "s/SMTPSERVER/$smtpserver/" -e "s/EMAILFROM/$emailfrom/" -e "s/EMAILTO/$emailto/"  /opt/obsrvbl/ossec/etc/ossec.conf
 
 # see http://www.fifi.org/doc/debconf-doc/tutorial.html, Troubleshooting
 db_stop

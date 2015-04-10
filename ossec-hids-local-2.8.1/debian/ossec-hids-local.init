@@ -6,7 +6,7 @@
 
 . /etc/ossec-init.conf
 if [ "X${DIRECTORY}" = "X" ]; then
-    DIRECTORY="/var/ossec"
+    DIRECTORY="/opt/obsrvbl/ossec"
 fi
 
     
