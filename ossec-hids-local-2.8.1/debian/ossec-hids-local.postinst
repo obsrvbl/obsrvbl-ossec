@@ -25,7 +25,7 @@ case "$1" in
         ;;
     configure)
 	
-	DIR=/opt/obsrvbl/ossec
+	DIR=/opt/obsrvbl-ossec
 	GROUP="ossec"
 	USER="ossec"
 	USER_MAIL="ossecm"

@@ -1,2 +1,2 @@
-/opt/obsrvbl/ossec/etc/ossec.conf
-/opt/obsrvbl/ossec/rules/local_rules.xml
+/opt/obsrvbl-ossec/etc/ossec.conf
+/opt/obsrvbl-ossec/rules/local_rules.xml
