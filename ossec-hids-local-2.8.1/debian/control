@@ -10,6 +10,7 @@ Package: ossec-hids-local
 Architecture: any
 Pre-Depends: debconf (>= 0.2.17) | debconf-2.0
 Conflicts: ossec-hids-server, ossec-hids-agent
+Recommends: ona-service
 Description: Open Source Security, Host-Based Intrusion Detection System
  It performs log analysis, integrity checking, Windows registry monitoring,
  rootkit detection, real-time alerting and active response.

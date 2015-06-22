@@ -48,6 +48,12 @@ case "$1" in
 	then
 			useradd -d ${DIR} -s ${OSMYSHELL} -g ${GROUP} ${USER_REM}
 	fi
+    # If the ona-service package (recommended) is installed, add the obsrvbl_ona
+    # user to the ossec group so it can read alert logs.
+	if getent passwd | grep -q "^obsrvbl_ona:"
+	then
+			usermod -a -G ${GROUP} obsrvbl_ona
+	fi
 
 # Default for all directories
 chmod 550 ${DIR}
@@ -170,7 +176,6 @@ chmod 550 ${DIR}/bin/*
 # config file
 chown root:${GROUP} ${DIR}/etc/ossec.conf
 chmod 440 ${DIR}/etc/ossec.conf
-
 
 ###
 # debconf now
