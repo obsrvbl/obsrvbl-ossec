@@ -54,7 +54,7 @@ install:
 	cp -p active-response/*.sh ${DIR}/active-response/bin/
 	cp -p active-response/firewalls/*.sh ${DIR}/active-response/bin/
 	echo "DIRECTORY=\"/opt/obsrvbl-ossec\"" > ${OSSEC_INIT}
-	echo "VERSION=\"v2.8.1\"" >> ${OSSEC_INIT}
+	echo "VERSION=\"v2.8.2\"" >> ${OSSEC_INIT}
 	echo "DATE=\"`date`\"" >> ${OSSEC_INIT}
 	echo "TYPE=\"local\"" >> ${OSSEC_INIT}
 
