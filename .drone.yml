@@ -1,4 +1,4 @@
-image: gcc4.8
+image: python2.7
 
 env:
   - PREFIX=/opt/obsrvbl/ossec
@@ -6,8 +6,8 @@ env:
   - VERSION=2.8.2
 
 script:
-  - sudo apt-get update
-  - sudo apt-get install ubuntu-dev-tools build-essential debhelper
+  - gem install fpm
+  - rbenv rehash
   - make deb
 
 notify:
