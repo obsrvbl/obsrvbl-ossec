@@ -1,4 +1,4 @@
-image: centos:6
+image: bbayles/centos-packager:latest
 
 env:
   - PREFIX=/opt/obsrvbl/ossec
@@ -6,8 +6,6 @@ env:
   - VERSION=2.8.2
 
 script:
-  - yum install -y gcc ruby ruby-devel rubygems tar
-  - gem install fpm
   - make build
   - make deb
   - make rpm
