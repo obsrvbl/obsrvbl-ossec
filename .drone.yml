@@ -9,14 +9,9 @@ script:
   - sudo apt-get update
   - sudo apt-get install ubuntu-dev-tools build-essential debhelper
   - tar czf ossec-hids-$TARGET_$VERSION.orig.tar.gz ossec-hids/
-  - cp -r ossec-hids/src/ ossec-hids-$TARGET-$VERSION/
-  - cp -r ossec-hids/etc/ ossec-hids-$TARGET-$VERSION/
-  - cp -r ossec-hids/contrib/ ossec-hids-$TARGET-$VERSION/
-  - cp -r ossec-hids/active-response/ ossec-hids-$TARGET-$VERSION/
+  - make copy
   - ( cd ossec-hids-$TARGET-$VERSION/ ; dch -D precise -i "Based on ossec-hids@$DRONE_COMMIT" )
-  - ( cd ossec-hids-$TARGET-$VERSION/ ; debuild -i -uc -us -b )
-  - mkdir -p debs/
-  - cp *.deb debs/
+  - make deb
 
 notify:
   email:
