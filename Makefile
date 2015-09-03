@@ -37,8 +37,6 @@ deb:
 		${BUILD_DIR}/target_root/=/
 
 rpm:
-	make -C ${BUILD_DIR} all
-	make -C ${BUILD_DIR} install
 	mkdir -p packages/
 	fpm \
 		-s dir \
