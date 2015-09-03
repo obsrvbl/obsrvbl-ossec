@@ -33,8 +33,7 @@ deb:
 		--description 'OSSEC package for use with Observable Networks monitoring' \
 		-m "Observable Networks, Inc. <engineering@observable.net>" \
 		-a 'amd64' \
-		--config-files /opt/obsrvbl-ossec/etc/ossec.conf \
-		--config-files /opt/obsrvbl-ossec/rules/local_rules.xml \
+		--deb-no-default-config-files \
 		${BUILD_DIR}/target_root/=/
 
 rpm:
