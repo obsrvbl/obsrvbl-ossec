@@ -8,9 +8,6 @@ env:
 script:
   - sudo apt-get update
   - sudo apt-get install ubuntu-dev-tools build-essential debhelper
-  - tar czf ossec-hids-$TARGET_$VERSION.orig.tar.gz ossec-hids/
-  - make copy
-  - ( cd ossec-hids-$TARGET-$VERSION/ ; dch -D precise -i "Based on ossec-hids@$DRONE_COMMIT" )
   - make deb
 
 notify:
