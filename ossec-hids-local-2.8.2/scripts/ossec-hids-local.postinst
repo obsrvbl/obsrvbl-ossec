@@ -164,3 +164,6 @@ chmod 550 ${DIR}/bin/*
 # config file
 chown root:${GROUP} ${DIR}/etc/ossec.conf
 chmod 440 ${DIR}/etc/ossec.conf
+
+# init scripts
+chmod 755 /etc/init.d/ossec-hids-local
