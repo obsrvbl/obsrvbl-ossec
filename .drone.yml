@@ -10,7 +10,7 @@ script:
   - sudo apt-get install rpm
   - gem install fpm
   - rbenv rehash
-  - make copy
+  - make build
   - make deb
   - make rpm
 

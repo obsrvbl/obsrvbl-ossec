@@ -4,15 +4,15 @@ VERSION = 2.8.2
 BUILD_DIR = ossec-hids-${TARGET}-${VERSION}
 TARGET_ROOT = ${BUILD_DIR}/target_root
 
-copy:
+build:
 	cp -r ossec-hids/src/ ${BUILD_DIR}/
 	cp -r ossec-hids/etc/ ${BUILD_DIR}/
 	cp -r ossec-hids/contrib/ ${BUILD_DIR}/
 	cp -r ossec-hids/active-response/ ${BUILD_DIR}/
-
-deb:
 	make -C ${BUILD_DIR} all
 	make -C ${BUILD_DIR} install
+
+deb:
 	mkdir -p packages/
 	fpm \
 		-s dir \
