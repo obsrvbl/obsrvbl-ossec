@@ -1,4 +1,4 @@
-image: python2.7
+image: centos:6
 
 env:
   - PREFIX=/opt/obsrvbl/ossec
@@ -6,10 +6,8 @@ env:
   - VERSION=2.8.2
 
 script:
-  - sudo apt-get update
-  - sudo apt-get install rpm
+  - yum install -y gcc ruby ruby-devel rubygems tar
   - gem install fpm
-  - rbenv rehash
   - make build
   - make deb
   - make rpm
