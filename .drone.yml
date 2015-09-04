@@ -6,6 +6,8 @@ env:
   - VERSION=2.8.2
 
 script:
+  - curl -O https://bootstrap.pypa.io/get-pip.py
+  - python get-pip.py
   - make build
   - make deb
   - make rpm
