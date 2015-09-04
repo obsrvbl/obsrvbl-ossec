@@ -59,15 +59,3 @@ install:
 	echo "VERSION=\"v2.8.2\"" >> ${OSSEC_INIT}
 	echo "DATE=\"`date`\"" >> ${OSSEC_INIT}
 	echo "TYPE=\"local\"" >> ${OSSEC_INIT}
-
-
-
-
-deb:
-#	dpkg-buildpackage -us -uc -b
-	dpkg-buildpackage -rfakeroot -us -uc -b
-
-debiandir:
-	sudo apt-get install build-essential autoconf automake autotools-dev dh-make debhelper devscripts fakeroot xutils lintian pbuilder
-	rmdir debian/
-	dh_make -e nicolas.zin@savoirfairelinux.com --createorig
