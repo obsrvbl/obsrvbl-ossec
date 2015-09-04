@@ -1,4 +1,4 @@
-PREFIX = /opt/obsrvbl/ossec
+PREFIX = /opt/obsrvbl-ossec
 TARGET = local
 VERSION = 2.8.2
 BUILD_DIR = ossec-hids-${TARGET}-${VERSION}
