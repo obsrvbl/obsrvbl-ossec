@@ -1,6 +1,7 @@
 DESTDIR=/
-DIR=debian/ossec-hids-local/opt/obsrvbl-ossec/
-OSSEC_INIT=debian/ossec-hids-local/etc/ossec-init.conf
+TARGET_ROOT=target_root
+DIR=${TARGET_ROOT}/opt/obsrvbl-ossec/
+OSSEC_INIT=${TARGET_ROOT}/etc/ossec-init.conf
 TARGET ?= local
 PREFIX ?= /opt/obsrvbl-ossec
 
@@ -27,7 +28,7 @@ clean:
 
 install:
 	mkdir -p ${DIR}
-	mkdir -p debian/ossec-hids-local/etc
+	mkdir -p ${TARGET_ROOT}/etc/init
 	(cd ${DIR}; mkdir -p logs logs/archives logs/alerts logs/firewall bin stats rules queue queue/alerts queue/ossec queue/fts queue/syscheck queue/rootcheck queue/diff queue/agent-info queue/agentless queue/rids tmp var var/run etc etc/shared active-response active-response/bin agentless .ssh)
 	cp -pr etc/rules/* ${DIR}/rules/
 	cp -pL /etc/localtime ${DIR}/etc/ 2>/dev/null || /bin/true
@@ -49,23 +50,12 @@ install:
 	cp -pr etc/client.keys ${DIR}/etc/ > /dev/null 2>&1 ||/bin/true
 	cp -pr src/agentlessd/scripts/* ${DIR}/agentless/
 	cp -pr etc/internal_options.conf ${DIR}/etc/
-	cp -pr ../obsrvbl/ossec-local.conf ${DIR}/etc/ossec.conf
+	cp -pr scripts/ossec-local.conf ${DIR}/etc/ossec.conf
 	cp -pr src/rootcheck/db/*.txt ${DIR}/etc/shared/
 	cp -p active-response/*.sh ${DIR}/active-response/bin/
 	cp -p active-response/firewalls/*.sh ${DIR}/active-response/bin/
+	cp -p scripts/ossec-hids-local.conf ${TARGET_ROOT}/etc/init/ossec-hids-local.conf
 	echo "DIRECTORY=\"/opt/obsrvbl-ossec\"" > ${OSSEC_INIT}
-	echo "VERSION=\"v2.8.1\"" >> ${OSSEC_INIT}
+	echo "VERSION=\"v2.8.2\"" >> ${OSSEC_INIT}
 	echo "DATE=\"`date`\"" >> ${OSSEC_INIT}
 	echo "TYPE=\"local\"" >> ${OSSEC_INIT}
-
-
-
-
-deb:
-#	dpkg-buildpackage -us -uc -b
-	dpkg-buildpackage -rfakeroot -us -uc -b
-
-debiandir:
-	sudo apt-get install build-essential autoconf automake autotools-dev dh-make debhelper devscripts fakeroot xutils lintian pbuilder
-	rmdir debian/
-	dh_make -e nicolas.zin@savoirfairelinux.com --createorig
