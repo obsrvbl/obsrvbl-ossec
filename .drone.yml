@@ -1,4 +1,4 @@
-image: bbayles/centos-packager:latest
+image: obsrvbl/docker-images:ossec-centos-6
 
 env:
   - PREFIX=/opt/obsrvbl/ossec
