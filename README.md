@@ -8,7 +8,7 @@ The package will install the "local" flavor of OSSEC and is designed to be compa
 In order to build the .deb and .rpm packages you will need:
 
 * `gcc`
-* `ruby` and the `fpm`
+* `ruby` and the `fpm` gem
 * `rpm`
 
 Issue `make build` to compile OSSEC and then `make deb` or `make rpm` to create packages.
