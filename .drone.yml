@@ -3,7 +3,7 @@ image: obsrvbl/docker-images:ossec-centos-6
 env:
   - PREFIX=/opt/obsrvbl/ossec
   - TARGET=local
-  - VERSION=2.8.2
+  - VERSION=2.8.3
 
 script:
   - make build
