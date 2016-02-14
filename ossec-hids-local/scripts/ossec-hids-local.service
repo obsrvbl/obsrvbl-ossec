@@ -1,0 +1,14 @@
+[Unit]
+Description=OSSEC HIDS (Observable Networks distribution)
+After=network.target 
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/opt/obsrvbl-ossec/
+ExecStart=/opt/obsrvbl-ossec/bin/ossec-control start
+ExecReload=/opt/obsrvbl-ossec/bin/ossec-control restart
+ExecStop=/opt/obsrvbl-ossec/bin/ossec-control stop
+
+[Install]
+WantedBy=multi-user.target
