@@ -59,6 +59,6 @@ install:
 	cp -p scripts/ossec-hids-local.conf ${DIR}/system/ossec-hids-local.conf
 	cp -p scripts/ossec-hids-local.service ${DIR}/system/ossec-hids-local.service
 	echo "DIRECTORY=\"/opt/obsrvbl-ossec\"" > ${OSSEC_INIT}
-	echo "VERSION=\"v{VERSION}\"" >> ${OSSEC_INIT}
+	echo "VERSION=\"v${VERSION}\"" >> ${OSSEC_INIT}
 	echo "DATE=\"`date`\"" >> ${OSSEC_INIT}
 	echo "TYPE=\"local\"" >> ${OSSEC_INIT}
