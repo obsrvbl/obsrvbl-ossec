@@ -29,6 +29,7 @@ clean:
 
 install:
 	mkdir -p ${DIR}
+	mkdir -p ${DIR}/system
 	mkdir -p ${TARGET_ROOT}/etc/init
 	(cd ${DIR}; mkdir -p logs logs/archives logs/alerts logs/firewall bin stats rules queue queue/alerts queue/ossec queue/fts queue/syscheck queue/rootcheck queue/diff queue/agent-info queue/agentless queue/rids tmp var var/run etc etc/shared active-response active-response/bin agentless .ssh)
 	cp -pr etc/rules/* ${DIR}/rules/
@@ -55,7 +56,8 @@ install:
 	cp -pr src/rootcheck/db/*.txt ${DIR}/etc/shared/
 	cp -p active-response/*.sh ${DIR}/active-response/bin/
 	cp -p active-response/firewalls/*.sh ${DIR}/active-response/bin/
-	cp -p scripts/ossec-hids-local.conf ${TARGET_ROOT}/etc/init/ossec-hids-local.conf
+	cp -p scripts/ossec-hids-local.conf ${DIR}/system/ossec-hids-local.conf
+	cp -p scripts/ossec-hids-local.service ${DIR}/system/ossec-hids-local.service
 	echo "DIRECTORY=\"/opt/obsrvbl-ossec\"" > ${OSSEC_INIT}
 	echo "VERSION=\"v{VERSION}\"" >> ${OSSEC_INIT}
 	echo "DATE=\"`date`\"" >> ${OSSEC_INIT}
