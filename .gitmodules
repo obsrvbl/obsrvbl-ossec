@@ -1,3 +1,6 @@
 [submodule "ossec-hids"]
 	path = ossec-hids
 	url = https://github.com/ossec/ossec-hids.git
+[submodule "ossec-wazuh"]
+	path = ossec-wazuh
+	url = https://github.com/wazuh/ossec-wazuh.git
