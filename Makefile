@@ -9,6 +9,7 @@ build:
 	cp -r ossec-hids/etc/ ${BUILD_DIR}/
 	cp -r ossec-hids/contrib/ ${BUILD_DIR}/
 	cp -r ossec-hids/active-response/ ${BUILD_DIR}/
+	cp -rf ossec-wazuh/etc/rules/* ${BUILD_DIR}/etc/rules/
 	make -C ${BUILD_DIR} all
 	make -C ${BUILD_DIR} install
 
