@@ -165,7 +165,24 @@ chmod 550 ${DIR}/bin/*
 chown root:${GROUP} ${DIR}/etc/ossec.conf
 chmod 440 ${DIR}/etc/ossec.conf
 
-# init script
-chmod 644 /etc/init/ossec-hids-local.conf
-initctl reload-configuration
-initctl start ossec-hids-local
+# systemd (RHEL style)
+if [ -d /usr/lib/systemd/system ] && [ -e /usr/bin/systemctl ]; then
+    chmod 644 /opt/obsrvbl-ossec/system/ossec-hids-local.service
+    cp /opt/obsrvbl-ossec/system/ossec-hids-local.service /usr/lib/systemd/system
+    ln -s /usr/lib/systemd/system/ossec-hids-local.service /etc/systemd/system/ossec-hids-local.service
+    systemctl daemon-reload
+    systemctl start ossec-hids-local.service
+# systemd (Debian style)
+elif [ -d /lib/systemd/system ] && [ -e /bin/systemctl ]; then
+    chmod 644 /opt/obsrvbl-ossec/system/ossec-hids-local.service
+    cp /opt/obsrvbl-ossec/system/ossec-hids-local.service /lib/systemd/system
+    ln -s /lib/systemd/system/ossec-hids-local.service /etc/systemd/system/ossec-hids-local.service
+    systemctl daemon-reload
+    systemctl start ossec-hids-local.service
+# upstart
+else
+    chmod 644 /opt/obsrvbl-ossec/system/ossec-hids-local.conf
+    cp /opt/obsrvbl-ossec/system/ossec-hids-local.conf /etc/init/
+    initctl reload-configuration
+    initctl start ossec-hids-local
+fi
