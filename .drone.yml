@@ -15,8 +15,8 @@ build:
 publish:
   s3:
     region: us-east-1
-    access_key: $$AWS_KEY
-    secret_key: $$AWS_SECRET
+    access_key: $$ACCESS_KEY
+    secret_key: $$SECRET_KEY
     bucket: onstatic
     access: public-read
     source: packages/
