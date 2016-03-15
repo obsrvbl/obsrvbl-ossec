@@ -1,29 +1,34 @@
-image: obsrvbl/docker-images:ossec-centos-6
-
-env:
-  - PREFIX=/opt/obsrvbl/ossec
-  - TARGET=local
-  - VERSION=2.8.3
-
-script:
-  - make build
-  - make deb
-  - make rpm
-
-notify:
-  email:
-    recipients:
-      - engineering@obsrvbl.com
+build:
+  image: obsrvbl/docker-images:ossec-centos-6
+  environment:
+    - PREFIX=/opt/obsrvbl/ossec
+    - TARGET=local
+    - VERSION=2.8.3
+  command:
+    - make build
+    - make deb
+    - make rpm
 
 publish:
   s3:
-    acl: public-read
     region: us-east-1
-    bucket: onstatic
     access_key: $$AWS_KEY
     secret_key: $$AWS_SECRET
+    bucket: onstatic
+    access: public-read
     source: packages/
-    target: ossec-hids/$DRONE_BRANCH/
+    target: ossec-hids/$$BRANCH/
     recursive: true
     when:
-      owner: obsrvbl
+      repo: "obsrvbl/obsrvbl-ossec"
+
+notify:
+  slack_blame:
+    token: $$SLACK_TOKEN
+    channel: "#github"
+    success:
+      icon: ":not-kirby:"
+      message: "Yippie!"
+    failure:
+      icon: ":tram:"
+      message: "The build is broken."
