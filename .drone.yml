@@ -4,7 +4,7 @@ build:
     - PREFIX=/opt/obsrvbl/ossec
     - TARGET=local
     - VERSION=2.8.3
-  command:
+  commands:
     - make build
     - make deb
     - make rpm
