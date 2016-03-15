@@ -1,3 +1,6 @@
+clone:
+  recursive: true
+
 build:
   image: obsrvbl/docker-images:ossec-centos-6
   environment:
