@@ -47,6 +47,7 @@ chown root:${GROUP} ${DIR}
 
 chown ${USER}:${GROUP} ${DIR}/logs
 chmod 0750 ${DIR}/logs
+
 touch ${DIR}/logs/ossec.log
 chown ${USER}:${GROUP} ${DIR}/logs/ossec.log
 chmod 0660 ${DIR}/logs/ossec.log
@@ -99,10 +100,10 @@ chmod 0640 ${DIR}/etc/shared/*.txt
 chown root:${GROUP} ${DIR}/active-response
 chown root:${GROUP} ${DIR}/active-response/bin
 chown root:${GROUP} ${DIR}/agentless
-chown -R root:${GROUP} ${DIR}/agentless/scripts/*
+chown root:${GROUP} ${DIR}/agentless/scripts/*
 
 chown root:${GROUP} ${DIR}/.ssh
-chmod 0700 ${DIR}/etc/.ssh
+chmod 0700 ${DIR}/.ssh
 
 chown root:${GROUP} ${DIR}/active-response/bin/*.sh
 chown root:${GROUP} ${DIR}/active-response/bin/firewalls/*.sh
@@ -114,7 +115,7 @@ chmod 0770 ${DIR}/var/run
 
 # Set permission override - adapted from install-server-generic from the Makefile
 chown ${USER}:${GROUP} ${DIR}/logs/active-responses.log
-chmod 0660 ${DIR}/var/run
+chmod 0660 ${DIR}/logs/active-responses.log
 
 chown ${USER}:${GROUP} ${DIR}/logs/archives
 chmod 0750 ${DIR}/logs/archives
@@ -123,7 +124,7 @@ chown ${USER}:${GROUP} ${DIR}/logs/alerts
 chmod 0750 ${DIR}/logs/alerts
 
 chown ${USER}:${GROUP} ${DIR}/logs/firewall
-chmod 0750 ${DIR}/logs/alerts
+chmod 0750 ${DIR}/logs/firewall
 
 chown ${USER}:${GROUP} ${DIR}/stats
 chmod 0750 ${DIR}/stats
@@ -140,7 +141,7 @@ chown ${USER}:${GROUP} ${DIR}/queue/rootcheck
 chmod 0750 ${DIR}/queue/rootcheck
 
 chown ${OSSEC_USER_REM}:${GROUP} ${DIR}/queue/agent-info
-chmod 0750 ${DIR}/queue/rootcheck
+chmod 0750 ${DIR}/queue/agent-info
 
 chown ${USER}:${GROUP} ${DIR}/queue/agentless
 chmod 0750 ${DIR}/queue/agentless
