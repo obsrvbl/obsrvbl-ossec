@@ -100,13 +100,12 @@ chmod 0640 ${DIR}/etc/shared/*.txt
 chown root:${GROUP} ${DIR}/active-response
 chown root:${GROUP} ${DIR}/active-response/bin
 chown root:${GROUP} ${DIR}/agentless
-chown root:${GROUP} ${DIR}/agentless/scripts/*
+chown root:${GROUP} ${DIR}/agentless/*
 
 chown root:${GROUP} ${DIR}/.ssh
 chmod 0700 ${DIR}/.ssh
 
 chown root:${GROUP} ${DIR}/active-response/bin/*.sh
-chown root:${GROUP} ${DIR}/active-response/bin/firewalls/*.sh
 
 chown root:${GROUP} ${DIR}/var
 
