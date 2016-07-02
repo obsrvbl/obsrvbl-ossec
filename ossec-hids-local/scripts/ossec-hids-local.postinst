@@ -1,22 +1,20 @@
 #!/bin/sh
 # postinst script for ossec-hids-local
 
-set -e
+set -ex
 
-DIR=/opt/obsrvbl-ossec
+DIR="/opt/obsrvbl-ossec"
 GROUP="ossec"
 USER="ossec"
 USER_MAIL="ossecm"
 USER_REM="ossecr"
 OSMYSHELL="/sbin/nologin"
 
-
 # Add group
 if ! getent group | grep -q "^ossec:"
 then
     groupadd --system ossec
 fi
-
 
 # Add users
 if ! getent passwd | grep -q "^ossec:"
@@ -34,7 +32,6 @@ then
     useradd -d ${DIR} -s ${OSMYSHELL} -g ${GROUP} ${USER_REM}
 fi
 
-
 # If the ona-service package (recommended) is installed, add the obsrvbl_ona
 # user to the ossec group so it can read alert logs.
 if getent passwd | grep -q "^obsrvbl_ona:"
@@ -42,128 +39,121 @@ then
     usermod -a -G ${GROUP} obsrvbl_ona
 fi
 
+# Default: Files are owned by root and have 0550 permissions
+chmod -R 0550 ${DIR}
 
-# Default for all directories
-chmod 550 ${DIR}
-chmod 550 ${DIR}/*
+# Set permission override - adapted from install-common from the Makefile
 chown root:${GROUP} ${DIR}
-chown root:${GROUP} ${DIR}/*
 
-# AnalysisD needs to write to alerts: log, mail and cmds
-chown -R ${USER}:${GROUP} ${DIR}/queue/alerts
-chmod -R 770 ${DIR}/queue/alerts
-
-# To the ossec queue (default for analysisd to read)
-chown -R ${USER}:${GROUP} ${DIR}/queue/ossec
-chmod -R 770 ${DIR}/queue/ossec
-
-# To the ossec fts queue
-chown -R ${USER}:${GROUP} ${DIR}/queue/fts
-chmod -R 750 ${DIR}/queue/fts
-chmod 750 ${DIR}/queue/fts/* 2> /dev/null || /bin/true
-
-# To the ossec syscheck/rootcheck queue
-chown -R ${USER}:${GROUP} ${DIR}/queue/syscheck
-chmod -R 750 ${DIR}/queue/syscheck
-chmod 740 ${DIR}/queue/syscheck/* 2> /dev/null || /bin/true
-
-chown -R ${USER}:${GROUP} ${DIR}/queue/rootcheck
-chmod -R 750 ${DIR}/queue/rootcheck
-chmod 740 ${DIR}/queue/rootcheck/* 2> /dev/null || /bin/true
-
-chown ${USER}:${GROUP} ${DIR}/queue/diff
-chown ${USER}:${GROUP} ${DIR}/queue/diff/* 2> /dev/null || /bin/true
-chmod 750 ${DIR}/queue/diff
-chmod 740 ${DIR}/queue/diff/* 2> /dev/null || /bin/true
-
-chown -R ${USER_REM}:${GROUP} ${DIR}/queue/agent-info
-chmod -R 750 ${DIR}/queue/agent-info
-chmod 740 ${DIR}/queue/agent-info/* 2> /dev/null || /bin/true
-chown -R ${USER_REM}:${GROUP} ${DIR}/queue/rids
-chmod -R 750 ${DIR}/queue/rids
-chmod 740 ${DIR}/queue/rids/* 2> /dev/null || /bin/true
-
-chown -R ${USER}:${GROUP} ${DIR}/queue/agentless
-chmod -R 750 ${DIR}/queue/agentless
-chmod 740 ${DIR}/queue/agentless/* 2> /dev/null || /bin/true
-
-
-# For the stats directory
-chown -R ${USER}:${GROUP} ${DIR}/stats
-chmod -R 750 ${DIR}/stats
-
-# For the logging user
-chown -R ${USER}:${GROUP} ${DIR}/logs
-chmod -R 750 ${DIR}/logs
+chown ${USER}:${GROUP} ${DIR}/logs
+chmod 0750 ${DIR}/logs
 touch ${DIR}/logs/ossec.log
 chown ${USER}:${GROUP} ${DIR}/logs/ossec.log
-chmod 660 ${DIR}/logs/ossec.log
+chmod 0660 ${DIR}/logs/ossec.log
 
-touch ${DIR}/logs/active-responses.log
-chown ${USER}:${GROUP} ${DIR}/logs/active-responses.log
-chmod 660 ${DIR}/logs/active-responses.log
+chown root:${GROUP} ${DIR}/queue
 
-# For the rules directory
-# [...]
-chown -R root:${GROUP} ${DIR}/rules
-chmod -R 550 ${DIR}/rules
+chown ${USER}:${GROUP} ${DIR}/queue/alerts
+chmod 0770 ${DIR}/queue/alerts
 
+chown ${USER}:${GROUP} ${DIR}/queue/ossec
+chmod 0750 ${DIR}/queue/ossec
 
-# For the etc dir
-chmod 550 ${DIR}/etc
-chown -R root:${GROUP} ${DIR}/etc
-if [ -e /etc/localtime ]; then
-    cp -pL /etc/localtime ${DIR}/etc/;
-    chmod 440 ${DIR}/etc/localtime
-    chown root:${GROUP} ${DIR}/etc/localtime
-fi
+chown ${USER}:${GROUP} ${DIR}/queue/syscheck
+chmod 0750 ${DIR}/queue/syscheck
 
-if [ -e /etc/TIMEZONE  ]; then
-    cp -p /etc/TIMEZONE ${DIR}/etc/;
-    chmod 550 ${DIR}/etc/TIMEZONE
-fi
+chown ${USER}:${GROUP} ${DIR}/queue/diff
+chmod 0750 ${DIR}/queue/diff
 
+chown root:${GROUP} ${DIR}/etc
 
-# For the /var/run
-chmod 770 ${DIR}/var/run
-chown root:${GROUP} ${DIR}/var/run
+cp -pL /etc/localtime ${DIR}/etc/ 2>/dev/null || /bin/true
+chown root:${GROUP} ${DIR}/etc/localtime 2>/dev/null || /bin/true
+chmod 0440 ${DIR}/etc/localtime 2>/dev/null || /bin/true
 
-chown root:${GROUP} ${DIR}/bin/util.sh
-chmod +x ${DIR}/bin/util.sh
+chown root:${GROUP} ${DIR}/tmp
+chmod 1550 ${DIR}/tmp
 
-# [...]
-chown root:${GROUP} ${DIR}/etc/decoder.xml
-chown root:${GROUP} ${DIR}/etc/local_decoder.xml 2>/dev/null || /bin/true
+cp -pL /etc/TIMEZONE ${DIR}/etc/ 2>/dev/null || /bin/true
+chown root:${GROUP} ${DIR}/etc/TIMEZONE 2>/dev/null || /bin/true
+chmod 0440 ${DIR}/etc/TIMEZONE 2>/dev/null || /bin/true
+
 chown root:${GROUP} ${DIR}/etc/internal_options.conf
+chmod 0640 ${DIR}/etc/internal_options.conf
+
 chown root:${GROUP} ${DIR}/etc/local_internal_options.conf 2>/dev/null || /bin/true
+chmod 0640 ${DIR}/etc/local_internal_options.conf 2>/dev/null || /bin/true
+
 chown root:${GROUP} ${DIR}/etc/client.keys 2>/dev/null || /bin/true
-chown root:${GROUP} ${DIR}/etc/shared/*
-chown root:${GROUP} ${DIR}/agentless/*
-chown ${USER}:${GROUP} ${DIR}/.ssh
-chmod 440 ${DIR}/etc/decoder.xml
-chmod 440 ${DIR}/etc/local_decoder.xml 2>/dev/null || /bin/true
-chmod 440 ${DIR}/etc/internal_options.conf
-chmod 440 ${DIR}/etc/local_internal_options.conf 2>/dev/null || /bin/true
-chmod 440 ${DIR}/etc/client.keys 2>/dev/null || /bin/true
-chmod 550 ${DIR}/etc
-chmod 770 ${DIR}/etc/shared
-chmod 440 ${DIR}/etc/shared/*
-chmod 550 ${DIR}/agentless/*
-rm ${DIR}/etc/shared/merged.mg 2>/dev/null || /bin/true
-chmod 700 ${DIR}/.ssh
+chmod 0640 ${DIR}/etc/client.keys 2>/dev/null || /bin/true
 
-# [...]
-#active response
-chmod 550 ${DIR}/active-response/bin/*
-chown root:${GROUP} ${DIR}/active-response/bin/*
-
-chown root:${GROUP} ${DIR}/bin/*
-chmod 550 ${DIR}/bin/*
-
-# [...]
-# config file
 chown root:${GROUP} ${DIR}/etc/ossec.conf
-chmod 440 ${DIR}/etc/ossec.conf
+chmod 0640 ${DIR}/etc/ossec.conf
+
+chown root:${GROUP} ${DIR}/etc/shared
+chmod 0770 ${DIR}/etc/shared
+
+chown root:${GROUP} ${DIR}/etc/shared/*.txt
+chmod 0640 ${DIR}/etc/shared/*.txt
+
+chown root:${GROUP} ${DIR}/active-response
+chown root:${GROUP} ${DIR}/active-response/bin
+chown root:${GROUP} ${DIR}/agentless
+chown -R root:${GROUP} ${DIR}/agentless/scripts/*
+
+chown root:${GROUP} ${DIR}/.ssh
+chmod 0700 ${DIR}/etc/.ssh
+
+chown root:${GROUP} ${DIR}/active-response/bin/*.sh
+chown root:${GROUP} ${DIR}/active-response/bin/firewalls/*.sh
+
+chown root:${GROUP} ${DIR}/var
+
+chown root:${GROUP} ${DIR}/var/run
+chmod 0770 ${DIR}/var/run
+
+# Set permission override - adapted from install-server-generic from the Makefile
+chown ${USER}:${GROUP} ${DIR}/logs/active-responses.log
+chmod 0660 ${DIR}/var/run
+
+chown ${USER}:${GROUP} ${DIR}/logs/archives
+chmod 0750 ${DIR}/logs/archives
+
+chown ${USER}:${GROUP} ${DIR}/logs/alerts
+chmod 0750 ${DIR}/logs/alerts
+
+chown ${USER}:${GROUP} ${DIR}/logs/firewall
+chmod 0750 ${DIR}/logs/alerts
+
+chown ${USER}:${GROUP} ${DIR}/stats
+chmod 0750 ${DIR}/stats
+
+chown root:${GROUP} ${DIR}/rules
+
+chown root:${GROUP} ${DIR}/rules/*.xml
+chmod 0640 ${DIR}/rules/*.xml
+
+chown ${USER}:${GROUP} ${DIR}/queue/fts
+chmod 0750 ${DIR}/queue/fts
+
+chown ${USER}:${GROUP} ${DIR}/queue/rootcheck
+chmod 0750 ${DIR}/queue/rootcheck
+
+chown ${OSSEC_USER_REM}:${GROUP} ${DIR}/queue/agent-info
+chmod 0750 ${DIR}/queue/rootcheck
+
+chown ${USER}:${GROUP} ${DIR}/queue/agentless
+chmod 0750 ${DIR}/queue/agentless
+
+chown ${OSSEC_USER_REM}:${GROUP} ${DIR}/queue/rids
+chmod 0750 ${DIR}/queue/rids
+
+chown root:${GROUP} ${DIR}/etc/decoder.xml
+chmod 0640 ${DIR}/etc/decoder.xml
+
+rm -f ${DIR}/etc/shared/merged.mg
+
+# Install the init system files
 
 # systemd (RHEL style)
 if [ -d /usr/lib/systemd/system ] && [ -e /usr/bin/systemctl ]; then
