@@ -2,7 +2,7 @@ DESTDIR=/
 TARGET_ROOT=target_root
 DIR=${TARGET_ROOT}/opt/obsrvbl-ossec
 TARGET ?= local
-VERSION ?= 2.8.3
+VERSION ?= 2.9
 PREFIX ?= /opt/obsrvbl-ossec
 
 all:
