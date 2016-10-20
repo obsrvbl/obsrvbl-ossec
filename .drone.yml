@@ -6,6 +6,7 @@ pipeline:
       - TARGET=local
       - VERSION=2.8.3
     commands:
+      - pip install -U awscli
       - make build
       - make deb
       - make rpm
