@@ -1,37 +1,13 @@
-clone:
-  recursive: true
-
-build:
-  image: obsrvbl/docker-images:ossec-centos-6
-  environment:
-    - PREFIX=/opt/obsrvbl/ossec
-    - TARGET=local
-    - VERSION=2.9.0beta5
-  commands:
-    - make build
-    - make deb
-    - make rpm
-
-publish:
-  s3:
-    region: us-east-1
-    access_key: $$ACCESS_KEY
-    secret_key: $$SECRET_KEY
-    bucket: onstatic
-    access: public-read
-    source: packages/
-    target: ossec-hids/$$BRANCH/
-    recursive: true
-    when:
-      repo: "obsrvbl/obsrvbl-ossec"
-
-notify:
-  slack_blame:
-    token: $$SLACK_TOKEN
-    channel: "#github"
-    success:
-      icon: ":not-kirby:"
-      message: "Yippie!"
-    failure:
-      icon: ":tram:"
-      message: "The build is broken."
+pipeline:
+  build:
+    image: obsrvbl/docker-images:ossec-centos-6
+    environment:
+      - PREFIX=/opt/obsrvbl/ossec
+      - TARGET=local
+      - VERSION=2.8.3
+    commands:
+      - pip install -U awscli
+      - make build
+      - make deb
+      - make rpm
+      - aws s3 cp --region us-east-1 --recursive --acl public-read packages/ s3://onstatic/ossec-hids/${DRONE_BRANCH}/
