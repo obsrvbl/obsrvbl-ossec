@@ -4,10 +4,10 @@ pipeline:
     environment:
       - PREFIX=/opt/obsrvbl/ossec
       - TARGET=local
-      - VERSION=2.8.3
     commands:
       - pip install -U awscli
       - make build
       - make deb
       - make rpm
       - aws s3 cp --region us-east-1 --recursive --acl public-read packages/ s3://onstatic/ossec-hids/${DRONE_BRANCH}/
+      - env

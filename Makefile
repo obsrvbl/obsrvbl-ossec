@@ -1,6 +1,6 @@
 PREFIX = /opt/obsrvbl-ossec
 TARGET = local
-VERSION = 2.8.3
+VERSION = 2.9.0
 BUILD_DIR = ossec-hids-${TARGET}
 TARGET_ROOT = ${BUILD_DIR}/target_root
 
@@ -10,7 +10,7 @@ build:
 	cp -r ossec-hids/contrib/ ${BUILD_DIR}/
 	cp -r ossec-hids/active-response/ ${BUILD_DIR}/
 	make -C ${BUILD_DIR} all
-	make -C ${BUILD_DIR} install
+	make -C ${BUILD_DIR} install VERSION=${VERSION}
 
 deb:
 	mkdir -p packages/
