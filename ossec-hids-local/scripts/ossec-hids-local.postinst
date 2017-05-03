@@ -32,13 +32,6 @@ then
     useradd -d ${DIR} -s ${OSMYSHELL} -g ${GROUP} ${USER_REM}
 fi
 
-# If the ona-service package (recommended) is installed, add the obsrvbl_ona
-# user to the ossec group so it can read alert logs.
-if getent passwd | grep -q "^obsrvbl_ona:"
-then
-    usermod -a -G ${GROUP} obsrvbl_ona
-fi
-
 # Default: Files are owned by root and have 0550 permissions
 chmod -R 0550 ${DIR}
 
@@ -153,6 +146,18 @@ chmod 0640 ${DIR}/etc/decoder.xml
 
 rm -f ${DIR}/etc/shared/merged.mg
 
+
+# If the ona-service package (recommended) is installed, add the obsrvbl_ona
+# user to the ossec group so it can read alert logs.
+if getent passwd | grep -q "^obsrvbl_ona:"
+then
+    usermod -a -G ${GROUP} obsrvbl_ona
+fi
+
+if [ -e /opt/obsrvbl-ona/config.local ]; then
+    echo 'OBSRVBL_SERVICE_OSSEC="true"' >> /opt/obsrvbl-ona/config.local
+fi
+
 # systemd init
 if [ -e /bin/systemctl ]; then
     chmod 644 ${DIR}/system/ossec-hids-local.service
@@ -160,10 +165,12 @@ if [ -e /bin/systemctl ]; then
     systemctl daemon-reload
     systemctl enable ossec-hids-local.service
     systemctl start ossec-hids-local.service
+    systemctl restart obsrvbl-ona.service || true
 # upstart init
 else
     chmod 644 ${DIR}/system/ossec-hids-local.conf
     cp ${DIR}/system/ossec-hids-local.conf /etc/init/ossec-hids-local.conf
     initctl reload-configuration
     initctl start ossec-hids-local
+    initctl restart obsrvbl-ona || true
 fi
