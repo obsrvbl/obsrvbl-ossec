@@ -9,7 +9,7 @@ all:
 	touch src/Config.OS
 	sed -i '/CEXTRA.*/d' src/Config.OS
 	echo "CEXTRA=-DLOCAL" >> src/Config.OS
-	(cd src; make PREFIX=$(PREFIX) TARGET=$(TARGET) all; make PREFIX=$(PREFIX) TARGET=$(TARGET) build)	
+	(cd src; make PREFIX=$(PREFIX) TARGET=$(TARGET) all; make PREFIX=$(PREFIX) TARGET=$(TARGET) build)
 
 clean:
 	rm bin/* || /bin/true
@@ -121,6 +121,9 @@ install:
 	cp -pr etc/decoder.xml ${DIR}/etc/
 
 	# Additional files
+	mkdir -p ${TARGET_ROOT}/usr/share/doc/ossec-hids
+	cp -p LICENSE ${TARGET_ROOT}/usr/share/doc/ossec-hids/
+
 	mkdir -p ${DIR}/system
 	cp -p scripts/ossec-hids-local.conf ${DIR}/system/ossec-hids-local.conf
 	cp -p scripts/ossec-hids-local.service ${DIR}/system/ossec-hids-local.service

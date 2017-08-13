@@ -5,6 +5,7 @@ BUILD_DIR = ossec-hids-${TARGET}
 TARGET_ROOT = ${BUILD_DIR}/target_root
 
 build:
+	cp -r ossec-hids/LICENSE ${BUILD_DIR}/
 	cp -r ossec-hids/src/ ${BUILD_DIR}/
 	cp -r ossec-hids/etc/ ${BUILD_DIR}/
 	cp -r ossec-hids/contrib/ ${BUILD_DIR}/
