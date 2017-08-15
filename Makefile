@@ -5,6 +5,7 @@ BUILD_DIR = ossec-hids-${TARGET}
 TARGET_ROOT = ${BUILD_DIR}/target_root
 
 build:
+	cp -r ossec-hids/LICENSE ${BUILD_DIR}/
 	cp -r ossec-hids/src/ ${BUILD_DIR}/
 	cp -r ossec-hids/etc/ ${BUILD_DIR}/
 	cp -r ossec-hids/contrib/ ${BUILD_DIR}/
@@ -22,7 +23,9 @@ deb:
 		-p packages/${BUILD_DIR}.deb \
 		--force \
 		--category 'admin' \
+		--description "Observable Networks OSSEC Distribution" \
 		--license 'GNU General Public License (version 2)' \
+		--url 'https://github.com/obsrvbl/obsrvbl-ossec' \
 		--conflicts 'ossec-hids-server' \
 		--conflicts 'ossec-hids-agent' \
 		--deb-recommends 'ona-service' \
@@ -46,7 +49,9 @@ rpm:
 		-p packages/${BUILD_DIR}.rpm \
 		--force \
 		--category 'admin' \
+		--description "Observable Networks OSSEC Distribution" \
 		--license 'GNU General Public License (version 2)' \
+		--url 'https://github.com/obsrvbl/obsrvbl-ossec' \
 		--conflicts 'ossec-hids-server' \
 		--conflicts 'ossec-hids-agent' \
 		--rpm-compression bzip2 \

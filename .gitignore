@@ -3,4 +3,5 @@ ossec-hids-local/contrib/
 ossec-hids-local/etc/
 ossec-hids-local/src/
 ossec-hids-local/target_root/
+ossec-hids-local/LICENSE
 packages/
