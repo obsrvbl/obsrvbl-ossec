@@ -1,6 +1,6 @@
 PREFIX = /opt/obsrvbl-ossec
 TARGET = local
-VERSION = 2.9.0
+VERSION = 2.9.2
 BUILD_DIR = ossec-hids-${TARGET}
 TARGET_ROOT = ${BUILD_DIR}/target_root
 
